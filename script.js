@@ -33,6 +33,7 @@
   var histList= document.getElementById("histList");
   var histVacio=document.getElementById("histVacio");
   var histCont= document.getElementById("histCont");
+   var btnActualizar = document.getElementById("actualizar");
   var btnCsv  = document.getElementById("exportCsv");
   var btnClear= document.getElementById("limpiar");
 
@@ -303,6 +304,14 @@ async function eliminarDeSupabase(id){
 
 });
 }
+   // Botón actualizar registros manualmente
+btnActualizar.addEventListener("click", async function(){
+
+    await render();
+
+    showToast("Registros actualizados ✓");
+
+});
   function escapeHtml(s){
     return String(s).replace(/[&<>"']/g, function(c){
       return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
