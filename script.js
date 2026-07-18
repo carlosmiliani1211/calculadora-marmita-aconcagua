@@ -279,41 +279,16 @@ async function eliminarDeSupabase(id){
 
   btn.addEventListener("click", async function(){
 
-    // Clave de supervisor
-    var clave = prompt("Ingrese clave de supervisor para eliminar:");
-
-    if(clave !== "1234"){
-
-      showToast("Clave incorrecta");
-      return;
-
-    }
-
-
-    // Confirmación final
-    var confirmar = confirm(
-      "¿Está seguro de eliminar este registro?\n\nEsta acción no se puede deshacer."
-    );
-
-
-    if(!confirmar){
-
-      return;
-
-    }
-
-
     var id = Number(btn.dataset.id);
 
     console.log("ID enviado a borrar:", id);
-
 
     if(await eliminarDeSupabase(id)){
 
       showToast("Registro eliminado ✓");
       await render();
 
-    }else{
+    } else {
 
       showToast("Error al eliminar");
 
@@ -322,7 +297,6 @@ async function eliminarDeSupabase(id){
   });
 
 });
-   
 }
    // Botón actualizar registros manualmente
 btnActualizar.addEventListener("click", async function(){
