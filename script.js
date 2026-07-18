@@ -323,6 +323,7 @@ async function eliminarDeSupabase(id){
   });
 
 });
+}
    // Botón actualizar registros manualmente
 btnActualizar.addEventListener("click", async function(){
 
