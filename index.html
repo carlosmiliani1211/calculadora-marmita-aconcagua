@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Calculadora de Marmita — Planta Aconcagua</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="marca"><div class="barra"></div><h1>Calculadora de Marmita</h1></div>
+    <p>Planta Aconcagua · Cook &amp; Chill · Estimación de contenido neto</p>
+  </header>
+
+  <div class="cuerpo">
+    <div class="lbl">1 · Tipo de preparación</div>
+    <div class="fam">
+      <button data-k="1.02" data-fam="general" class="on">General
+        <span class="sub">Salsas · guisos · legumbres · caldos</span></button>
+      <button data-k="0.95" data-fam="pure">Puré / batido
+        <span class="sub">Purés · charquicán aireado</span></button>
+    </div>
+
+    <div class="lbl">2 · Medición con la regla</div>
+    <div class="campo">
+      <div class="regla-row">
+        <input id="cm" type="number" inputmode="decimal" placeholder="—" step="0.5" min="0" max="55">
+        <span class="unidad">cm desde el borde<br>a la superficie</span>
+      </div>
+      <div class="hint">Mide en el <b>punto marcado</b> del borde, con el <b>agitador detenido</b> y la superficie asentada. En productos con espuma, desespuma antes de leer.</div>
+    </div>
+
+    <div id="alerta" class="alerta"></div>
+
+    <div id="vacio" class="vacio">Ingresa la medición de la regla para estimar los kilos.</div>
+
+    <div id="res" class="res" style="display:none;">
+      <div class="top">
+        <div class="kg"><span id="kg">0</span><span class="u">kg</span></div>
+        <div class="rango" id="rango">rango esperado —</div>
+      </div>
+      <div class="bajo">
+        <div><div class="n" id="litros">0</div><div class="c">Litros netos</div></div>
+        <div><div class="n" id="pct">0%</div><div class="c">del máximo útil</div></div>
+      </div>
+    </div>
+
+    <div class="comp">
+      <div class="lbl">3 · Contraste con conteo de bolsas <span class="opt">(opcional)</span></div>
+      <div class="comp-row">
+        <input id="bolsas" type="number" inputmode="numeric" placeholder="—" min="0">
+        <span>bolsas producidas × <b>3,0 kg</b> teóricos</span>
+      </div>
+      <div id="compOut" class="comp-out"></div>
+    </div>
+
+    <!-- datos de registro -->
+    <div class="reg-datos">
+      <div class="lbl">4 · Datos del lote para guardar</div>
+     <div class="reg-grid">
+  <div>
+    <label for="sku">ID Receta / SKU <span class="opt" style="color:var(--rojo)">*obligatorio</span></label>
+    <input id="sku" type="text" placeholder="Ej: 6487421">
+  </div>
+
+  <div>
+    <label for="descripcion">Descripción <span class="opt" style="color:var(--rojo)">*obligatorio</span></label>
+    <input id="descripcion" type="text" placeholder="Ej: Goulash Vacuno">
+  </div>
+</div>
+      <div class="reg-grid">
+        <div>
+          <label for="marmita">Marmita</label>
+          <input id="marmita" type="text" inputmode="numeric" placeholder="1 / 2 / 3">
+        </div>
+        <div>
+          <label for="turno">Turno</label>
+          <input id="turno" type="text" placeholder="A / B / Noche">
+        </div>
+      </div>
+      <button id="guardar" class="btn-guardar" disabled>Guardar registro</button>
+    </div>
+
+    <!-- historial -->
+    <div class="hist">
+      <div class="hist-head">
+        <h2>Registros guardados</h2>
+        <span class="cont" id="histCont">0 registros</span>
+      </div>
+      <div class="hist-acc">
+        <button id="exportCsv">⬇ Exportar CSV</button>
+        <button id="limpiar" class="danger" disabled>Vaciar todo</button>
+      </div>
+      <div id="histVacio" class="hist-vacio">Aún no hay registros. Completa una medición y presiona <b>Guardar registro</b>.</div>
+      <div id="histList"></div>
+    </div>
+  </div>
+
+  <footer>
+    <b>Ecuación:</b> Litros = 470 − 6,3 × d · <b>Peso ≈ k × Litros</b> (k General 1,02 · Puré 0,95).<br>
+    Modelo calibrado con 27 lotes reales de planta (R² 0,82). Estimación de apoyo a la planificación, <b>no reemplaza el pesaje final</b>. Válido para d entre 8 y 48 cm.<br>
+    Los registros se guardan en <b>Supabase</b>. Exporta el CSV para consolidar o llevar a Power BI. Rev. 2026-07.
+</footer>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+<!-- Primero Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- Después tu código -->
+<script src="script.js"></script>
+
+</body>
+</html>
