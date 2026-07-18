@@ -276,31 +276,51 @@ async function eliminarDeSupabase(id){
   "</div>";
     }).join("");
 
-    histList.querySelectorAll(".del").forEach(function(btn){
+  histList.querySelectorAll(".del").forEach(function(btn){
 
-  btn.onclick = async function(){
+  btn.addEventListener("click", async function(){
 
-    const id = Number(this.dataset.id);
+    // Clave de supervisor
+    var clave = prompt("Ingrese clave de supervisor para eliminar:");
 
-    console.log("CLICK ELIMINAR");
-    console.log("ID:", id);
+    if(clave !== "1234"){
 
-    const resultado = await eliminarDeSupabase(id);
+      showToast("Clave incorrecta");
+      return;
 
-    console.log("Resultado eliminar:", resultado);
+    }
 
-    if(resultado){
+
+    // Confirmación final
+    var confirmar = confirm(
+      "¿Está seguro de eliminar este registro?\n\nEsta acción no se puede deshacer."
+    );
+
+
+    if(!confirmar){
+
+      return;
+
+    }
+
+
+    var id = Number(btn.dataset.id);
+
+    console.log("ID enviado a borrar:", id);
+
+
+    if(await eliminarDeSupabase(id)){
 
       showToast("Registro eliminado ✓");
       await render();
 
     }else{
 
-      showToast("No se pudo eliminar");
+      showToast("Error al eliminar");
 
     }
 
-  };
+  });
 
 });
 }
