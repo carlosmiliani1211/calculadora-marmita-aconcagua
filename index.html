@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Calculadora de Marmita — Planta Aconcagua</title>
+  <link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#0b5ed7">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -112,6 +115,20 @@
 
 <!-- Después tu código -->
 <script src="script.js"></script>
+<script>
 
+if ("serviceWorker" in navigator) {
+
+    navigator.serviceWorker.register("service-worker.js")
+    .then(() => {
+        console.log("PWA instalada correctamente");
+    })
+    .catch(error => {
+        console.error("Error Service Worker:", error);
+    });
+
+}
+
+</script>
 </body>
 </html>
