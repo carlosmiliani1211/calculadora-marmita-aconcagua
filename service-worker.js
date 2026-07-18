@@ -1,4 +1,4 @@
-const CACHE_NAME = "marmita-aconcagua-v2";
+const CACHE_NAME = "marmita-aconcagua-v3";
 
 const ARCHIVOS = [
     "./",
@@ -18,7 +18,27 @@ self.addEventListener("install", evento => {
     );
 
 });
+self.addEventListener("activate", evento => {
 
+    evento.waitUntil(
+        caches.keys().then(keys => {
+
+            return Promise.all(
+                keys.map(key => {
+
+                    if(key !== CACHE_NAME){
+                        return caches.delete(key);
+                    }
+
+                })
+            );
+
+        })
+    );
+
+    self.clients.claim();
+
+});
 
 self.addEventListener("fetch", evento => {
 
