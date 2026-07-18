@@ -275,8 +275,7 @@ async function eliminarDeSupabase(id){
     "<button class='del' data-id='"+r.id+"'>×</button>"+
   "</div>";
     }).join("");
-
-  histList.querySelectorAll(".del").forEach(function(btn){
+ histList.querySelectorAll(".del").forEach(function(btn){
 
   btn.addEventListener("click", async function(){
 
@@ -323,6 +322,7 @@ async function eliminarDeSupabase(id){
   });
 
 });
+   
 }
    // Botón actualizar registros manualmente
 btnActualizar.addEventListener("click", async function(){
