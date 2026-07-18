@@ -1,4 +1,4 @@
-const CACHE_NAME = "marmita-aconcagua-v1";
+const CACHE_NAME = "marmita-aconcagua-v2";
 
 const ARCHIVOS = [
     "./",
