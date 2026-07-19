@@ -35,7 +35,6 @@
   var histCont= document.getElementById("histCont");
    var btnActualizar = document.getElementById("actualizar");
   var btnCsv  = document.getElementById("exportCsv");
-  var btnClear= document.getElementById("limpiar");
 
   var k = 1.02, famActual = "general";
   var MAX_UTIL = 420;              // kg de referencia a d~8 con k~1.02
@@ -220,7 +219,7 @@ async function eliminarDeSupabase(id){
   kg_bolsa: ultimo.pesoRealBolsa != null
       ? +ultimo.pesoRealBolsa.toFixed(3)
       : null,
-  usuario: "Carlos",
+  usuario: "",
   observaciones: ""
 };
       if(await guardarEnSupabase(reg)){
@@ -240,12 +239,14 @@ async function eliminarDeSupabase(id){
 
     var arr = await leer();
     histCont.textContent = arr.length + (arr.length===1 ? " registro" : " registros");
-    if(arr.length === 0){
-      histVacio.style.display = "block"; histList.innerHTML = "";
-      btnCsv.disabled = true; btnClear.disabled = true; return;
-    }
-    histVacio.style.display = "none";
-    btnCsv.disabled = false; btnClear.disabled = false;
+  if(arr.length === 0){
+  histVacio.style.display = "block"; 
+  histList.innerHTML = "";
+  btnCsv.disabled = true; 
+  return;
+}
+ histVacio.style.display = "none";
+btnCsv.disabled = false;
 
     histList.innerHTML = arr.map(function(r){
       var famTag = r.tipo === "pure"
@@ -272,32 +273,10 @@ async function eliminarDeSupabase(id){
     "<div style='text-align:right'>"+
       "<div class='kgbig'>"+fmt(r.kg_estimados)+"<span class='u'> kg</span></div>"+
     "</div>"+
-    "<button class='del' data-id='"+r.id+"'>×</button>"+
   "</div>";
     }).join("");
- histList.querySelectorAll(".del").forEach(function(btn){
-
-  btn.addEventListener("click", async function(){
-
-    var id = Number(btn.dataset.id);
-
-    console.log("ID enviado a borrar:", id);
-
-    if(await eliminarDeSupabase(id)){
-
-      showToast("Registro eliminado ✓");
-      await render();
-
-    } else {
-
-      showToast("Error al eliminar");
-
     }
-
-  });
-
-});
-}
+     
    // Botón actualizar registros manualmente
 btnActualizar.addEventListener("click", async function(){
 
